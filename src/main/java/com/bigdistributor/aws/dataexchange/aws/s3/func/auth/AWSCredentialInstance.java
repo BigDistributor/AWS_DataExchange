@@ -12,6 +12,11 @@ public class AWSCredentialInstance {
     private static final Log logger = Log.getLogger(MethodHandles.lookup().lookupClass().getSimpleName());
     private static AWSCredentials instance;
 
+
+    public static boolean isInitiated() {
+        return instance != null;
+    }
+
     private AWSCredentialInstance(AWSCredentials credentials) {
         instance = credentials;
     }
@@ -24,6 +29,7 @@ public class AWSCredentialInstance {
         }
         return instance;
     }
+
     public static synchronized AWSCredentialInstance initFromText(String text) {
         System.out.println("Cred Text" + text);
         AWSCredentials cred = AWSCredentialsReader.getFromText(text);
