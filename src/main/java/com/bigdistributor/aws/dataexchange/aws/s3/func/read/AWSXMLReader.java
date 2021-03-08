@@ -21,7 +21,6 @@ public class AWSXMLReader extends AWSReader {
 
     public AWSXMLReader(S3BucketInstance bucketInstance, String path, String fileName) {
         super(bucketInstance, path, fileName);
-
     }
 
     public AWSXMLReader(S3BucketInstance s3, String path) {

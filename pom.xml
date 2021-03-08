@@ -4,105 +4,20 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.bigdistributor</groupId>
-    <artifactId>BigDistributor_AWS</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <artifactId>AWS_DataExchange</artifactId>
+    <version>0.1-SNAPSHOT</version>
 
-    <name>Big Distributor AWS functional</name>
+    <name>AWS Exchange helpers</name>
     <description>.</description>
     <url>https://github.com/BigDistributor</url>
     <inceptionYear>2020</inceptionYear>
 
-    <organization>
-        <name>Preibisch Lab</name>
-        <url>https://preibischlab.mdc-berlin.de/</url>
-    </organization>
-    <licenses>
-        <license>
-            <name>Simplified BSD License</name>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <id>mzouink</id>
-            <name>Marwan Zouinkhi</name>
-            <url>https://imagej.net/User:mzouink</url>
-            <roles>
-                <role>founder</role>
-                <role>lead</role>
-                <role>developer</role>
-                <role>debugger</role>
-                <role>reviewer</role>
-                <role>support</role>
-                <role>maintainer</role>
-            </roles>
-        </developer>
-    </developers>
-    <contributors>
-        <contributor>
-            <name>None</name>
-        </contributor>
-    </contributors>
-
-    <mailingLists>
-        <mailingList>
-            <name>Image.sc Forum</name>
-            <archive>None</archive>
-        </mailingList>
-    </mailingLists>
-
-    <scm>
-        <connection>scm:git:git://github.com/BigDistributor/BD_DataExchange</connection>
-        <developerConnection>scm:git:git@github.com:BigDistributor/BD_DataExchange</developerConnection>
-        <tag>HEAD</tag>
-        <url>https://github.com/BigDistributor/BD_DataExchange</url>
-    </scm>
-    <issueManagement>
-        <system>GitHub</system>
-        <url>https://github.com/BigDistributor/BD_DataExchange/issues</url>
-    </issueManagement>
-    <ciManagement>
-        <system>Travis CI</system>
-        <url>https://travis-ci.org/BigDistributor/BD_DataExchange</url>
-    </ciManagement>
-
-
     <properties>
-        <license.licenseName>bsd_2</license.licenseName>
-        <license.projectName>BigDistributor</license.projectName>
-        <license.organizationName>Preibisch Lab</license.organizationName>
-        <license.copyrightOwners>Marwan Zouinkhi, Stephan Preibisch</license.copyrightOwners>
-
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <jackson.version>2.5.2</jackson.version>
     </properties>
 
-    <repositories>
-        <!-- NB: for project parent -->
-        <repository>
-            <id>imagej.public</id>
-            <url>http://maven.imagej.net/content/groups/public</url>
-        </repository>
-        <repository>
-            <id>saalfeld-lab-maven-repo</id>
-            <url>https://saalfeldlab.github.io/maven</url>
-        </repository>
-    </repositories>
-
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-core -->
-        <dependency>
-            <groupId>org.apache.spark</groupId>
-            <artifactId>spark-core_2.11</artifactId>
-            <version>2.4.7</version>
-        </dependency>
-        <dependency>
-            <groupId>com.bigdistributor</groupId>
-            <version>0.1-SNAPSHOT</version>
-            <artifactId>BigDistributor-core</artifactId>
-        </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3 -->
         <dependency>
@@ -110,48 +25,21 @@
             <artifactId>aws-java-sdk-s3</artifactId>
             <version>1.11.950</version>
         </dependency>
-        <!--        N5-->
-        <dependency>
-            <groupId>org.janelia.saalfeldlab</groupId>
-            <artifactId>n5-aws-s3</artifactId>
-            <version>3.2.1-SNAPSHOT</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-sqs -->
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-sqs</artifactId>
-            <version>1.11.950</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-lambda -->
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-lambda</artifactId>
-            <version>1.11.950</version>
-        </dependency>
         <dependency>
             <groupId>org.jdom</groupId>
             <artifactId>jdom2</artifactId>
             <version>2.0.6</version>
         </dependency>
-
         <dependency>
-            <groupId>net.imglib2</groupId>
-            <artifactId>imglib2</artifactId>
-            <version>5.10.0</version>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>r05</version>
         </dependency>
+        <!--        N5-->
+<!--        <dependency>-->
+<!--            <groupId>org.janelia.saalfeldlab</groupId>-->
+<!--            <artifactId>n5-aws-s3</artifactId>-->
+<!--            <version>3.2.1-SNAPSHOT</version>-->
+<!--        </dependency>-->
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

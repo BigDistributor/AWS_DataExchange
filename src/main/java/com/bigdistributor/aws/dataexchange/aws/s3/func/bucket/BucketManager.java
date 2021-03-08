@@ -3,16 +3,15 @@ package com.bigdistributor.aws.dataexchange.aws.s3.func.bucket;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.bigdistributor.biglogger.adapters.Log;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class BucketManager {
-    private static final Log logger = Log.getLogger(MethodHandles.lookup().lookupClass().getSimpleName());
+    private static final Logger logger = Logger.getLogger(BucketManager.class.getSimpleName());
 
     AmazonS3 s3client;
     String name;
@@ -27,7 +26,7 @@ public class BucketManager {
             s3client.createBucket(name);
             logger.info("Bucket created!");
         } else {
-            logger.error("Bucket exists!");
+            logger.severe("Bucket exists!");
         }
         return this;
     }
