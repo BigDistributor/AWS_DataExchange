@@ -7,10 +7,8 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ListObjectsV2Result;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
-import com.amazonaws.services.s3.transfer.MultipleFileUpload;
-import com.amazonaws.services.s3.transfer.TransferManager;
-import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
-import com.amazonaws.services.s3.transfer.Upload;
+import com.amazonaws.services.s3.transfer.*;
+import com.google.common.io.Files;
 
 import java.io.File;
 import java.io.IOException;
@@ -53,23 +51,18 @@ public class S3BucketInstance {
     }
 
     public void upload(File file) throws IOException, InterruptedException {
-
-        if (!file.exists())
-            throw new IOException(file.getAbsolutePath() + " not exist ! ");
-        System.out.println("uploading "+file.getAbsolutePath());
-        if (file.isDirectory())
-            uploadFolder(file);
-        else if (file.isFile())
-            uploadFile(file);
-        System.out.println("Complete");
-
+        upload(file, "");
     }
 
-    public void uploadFolder(File file) throws InterruptedException {
-        TransferManager tm = TransferManagerBuilder.standard().withS3Client(s3).build();
-        MultipleFileUpload upload = tm.uploadDirectory(bucketName, file.getName(), file, true);
-
-        upload.waitForCompletion();
+    public void upload(File file, String path) throws IOException, InterruptedException {
+        if (!file.exists())
+            throw new IOException(file.getAbsolutePath() + " not exist ! ");
+        System.out.println("uploading " + file.getAbsolutePath());
+        if (file.isDirectory())
+            uploadFolder(file, path);
+        else if (file.isFile())
+            uploadFile(file, path);
+        System.out.println("Complete");
     }
 
     public void createBucket() {
@@ -92,9 +85,61 @@ public class S3BucketInstance {
         return bucketName;
     }
 
-    public void uploadFile(File file) throws InterruptedException {
+    public void uploadFile(File file, String path) throws InterruptedException {
         TransferManager tm = TransferManagerBuilder.standard().withS3Client(s3).build();
-        Upload upload = tm.upload(bucketName, file.getName(), file);
+        String filePath = (path == "") ? file.getName() : new File(path, file.getName()).getPath();
+        Upload upload = tm.upload(bucketName, filePath, file);
         upload.waitForCompletion();
+    }
+
+    public void uploadFolder(File file, String path) throws InterruptedException {
+        TransferManager tm = TransferManagerBuilder.standard().withS3Client(s3).build();
+        String filePath = (path == "") ? file.getName() : new File(path, file.getName()).getPath();
+        MultipleFileUpload upload = tm.uploadDirectory(bucketName, filePath, file, true);
+        upload.waitForCompletion();
+    }
+
+    public void uploadFolder(File file) throws InterruptedException {
+        uploadFolder(file, "");
+    }
+
+    public void uploadFile(File file) throws InterruptedException {
+        uploadFile(file, "");
+    }
+
+    public File download(File localFolder, String file, String path) {
+       try {
+           TransferManager tm = TransferManagerBuilder.standard().withS3Client(s3).build();
+           String filePath = path.isEmpty() ? file : new File(path, file).getPath();
+           System.out.println("File path: "+filePath);
+           File localFile = new File(localFolder, file);
+           System.out.println("Local file: "+localFile);
+           Download upload = tm.download(bucketName, filePath, localFile);
+           upload.waitForCompletion();
+           return localFile;
+       }catch (Exception e){
+           e.printStackTrace();
+           System.out.println("File: "+file + " not found!");
+       }
+        return null;
+    }
+
+    public void downloadFolder(File localFolder, String file, String path) throws InterruptedException {
+        TransferManager tm = TransferManagerBuilder.standard().withS3Client(s3).build();
+        String filePath = path.isEmpty() ? file : new File(path, file).getPath();
+        MultipleFileDownload upload = tm.downloadDirectory(bucketName, filePath, localFolder);
+        upload.waitForCompletion();
+    }
+
+    public void downloadFrom(File outputFolder, String path, String[] files) throws InterruptedException, IOException {
+        if(!outputFolder.exists())
+            outputFolder.mkdirs();
+        for (String f : files) {
+            downloadFolder(outputFolder,f,path);
+            File f1 = new File(new File(outputFolder,path),f);
+            File f2 = new File(outputFolder,f);
+            Files.move(f1,f2);
+        }
+        new File(outputFolder,path).delete();
     }
 }

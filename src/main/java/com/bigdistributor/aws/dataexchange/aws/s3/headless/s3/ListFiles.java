@@ -5,14 +5,11 @@ import com.bigdistributor.aws.dataexchange.aws.s3.func.auth.AWSCredentialInstanc
 import com.bigdistributor.aws.dataexchange.aws.s3.func.bucket.S3BucketInstance;
 import com.bigdistributor.aws.dataexchange.utils.AWS_DEFAULT;
 
-import java.io.File;
-import java.io.IOException;
-
-public class UploadFile {
-    public static void main(String[] args) throws IllegalAccessException, InterruptedException, IOException {
+public class ListFiles {
+    public static void main(String[] args) {
         AWSCredentialInstance.init(AWS_DEFAULT.AWS_CREDENTIALS_PATH);
-        S3BucketInstance.init(AWSCredentialInstance.get(), Regions.EU_CENTRAL_1, AWS_DEFAULT.bucket_name);
-        File file = new File("/Users/Marwan/Desktop/down");
-        S3BucketInstance.get().upload(file, "data/");
+        S3BucketInstance.init(AWSCredentialInstance.get(), Regions.EU_CENTRAL_1, "bigstitcher");
+
+
     }
 }
