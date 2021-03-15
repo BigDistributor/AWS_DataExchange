@@ -3,7 +3,7 @@ package com.bigdistributor.aws.dataexchange.aws.s3.func.read;
 import com.amazonaws.regions.Regions;
 import com.bigdistributor.aws.dataexchange.aws.s3.func.auth.AWSCredentialInstance;
 import com.bigdistributor.aws.dataexchange.aws.s3.func.bucket.S3BucketInstance;
-import com.bigdistributor.aws.dataexchange.utils.AWS_DEFAULT;
+import com.bigdistributor.aws.utils.AWS_DEFAULT;
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
 import org.jdom2.input.StAXEventBuilder;

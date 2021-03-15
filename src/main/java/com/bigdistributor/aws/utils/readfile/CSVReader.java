@@ -1,6 +1,6 @@
-package com.bigdistributor.aws.dataexchange.utils.readfile;
+package com.bigdistributor.aws.utils.readfile;
 
-import com.bigdistributor.aws.dataexchange.utils.AWS_DEFAULT;
+import com.bigdistributor.aws.utils.AWS_DEFAULT;
 import com.google.common.base.Joiner;
 
 import java.io.BufferedReader;

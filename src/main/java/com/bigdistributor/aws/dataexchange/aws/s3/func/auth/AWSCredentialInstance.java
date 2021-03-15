@@ -4,7 +4,7 @@ import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.bigdistributor.aws.dataexchange.Log;
-import com.bigdistributor.aws.dataexchange.utils.AWS_DEFAULT;
+import com.bigdistributor.aws.utils.AWS_DEFAULT;
 
 import java.lang.invoke.MethodHandles;
 

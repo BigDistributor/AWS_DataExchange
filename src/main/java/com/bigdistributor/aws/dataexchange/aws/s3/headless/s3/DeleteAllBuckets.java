@@ -5,7 +5,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.Bucket;
 import com.bigdistributor.aws.dataexchange.aws.s3.func.auth.AWSCredentialInstance;
 import com.bigdistributor.aws.dataexchange.aws.s3.func.bucket.S3BucketInstance;
-import com.bigdistributor.aws.dataexchange.utils.AWS_DEFAULT;
+import com.bigdistributor.aws.utils.AWS_DEFAULT;
 
 import java.util.List;
 
