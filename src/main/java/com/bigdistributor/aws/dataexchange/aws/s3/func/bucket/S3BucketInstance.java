@@ -108,19 +108,19 @@ public class S3BucketInstance {
     }
 
     public File download(File localFolder, String file, String path) {
-       try {
-           TransferManager tm = TransferManagerBuilder.standard().withS3Client(s3).build();
-           String filePath = path.isEmpty() ? file : new File(path, file).getPath();
-           System.out.println("File path: "+filePath);
-           File localFile = new File(localFolder, file);
-           System.out.println("Local file: "+localFile);
-           Download upload = tm.download(bucketName, filePath, localFile);
-           upload.waitForCompletion();
-           return localFile;
-       }catch (Exception e){
-           e.printStackTrace();
-           System.out.println("File: "+file + " not found!");
-       }
+        try {
+            TransferManager tm = TransferManagerBuilder.standard().withS3Client(s3).build();
+            String filePath = path.isEmpty() ? file : new File(path, file).getPath();
+            System.out.println("File path: " + filePath);
+            File localFile = new File(localFolder, file);
+            System.out.println("Local file: " + localFile);
+            Download upload = tm.download(bucketName, filePath, localFile);
+            upload.waitForCompletion();
+            return localFile;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("File: " + file + " not found!");
+        }
         return null;
     }
 
@@ -132,14 +132,15 @@ public class S3BucketInstance {
     }
 
     public void downloadFrom(File outputFolder, String path, String[] files) throws InterruptedException, IOException {
-        if(!outputFolder.exists())
+        if (!outputFolder.exists())
             outputFolder.mkdirs();
         for (String f : files) {
-            downloadFolder(outputFolder,f,path);
-            File f1 = new File(new File(outputFolder,path),f);
-            File f2 = new File(outputFolder,f);
-            Files.move(f1,f2);
+            downloadFolder(outputFolder, f, path);
+            File f1 = new File(new File(outputFolder, path), f);
+            File f2 = new File(outputFolder, f);
+            if (!f1.getAbsolutePath().equals(f2.getAbsolutePath()))
+                Files.move(f1, f2);
         }
-        new File(outputFolder,path).delete();
+        new File(outputFolder, path).delete();
     }
 }
