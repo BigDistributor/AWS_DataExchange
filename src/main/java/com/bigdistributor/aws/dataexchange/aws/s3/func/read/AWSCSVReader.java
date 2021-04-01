@@ -15,7 +15,7 @@ public class AWSCSVReader {
     public static void main(String[] args) throws IllegalAccessException, IOException {
         AWSCredentialInstance.init(AWS_DEFAULT.AWS_CREDENTIALS_PATH);
 
-        S3BucketInstance.init(AWSCredentialInstance.get(), Regions.EU_CENTRAL_1, "demo-stephan-marwan");
+        S3BucketInstance.init(AWSCredentialInstance.get(), Regions.EU_CENTRAL_1, "demo-stephan-marwan","");
 
 //        Document xml = new AWSXMLReader(S3BucketInstance.get(), "big/").read();
 

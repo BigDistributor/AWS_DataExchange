@@ -19,9 +19,11 @@ public class S3BucketInstance {
     private static S3BucketInstance instance;
     private AmazonS3 s3;
     private String bucketName;
+    private final String path;
 
-    private S3BucketInstance(AmazonS3 s3client, String bucket) {
+    private S3BucketInstance(AmazonS3 s3client, String bucket,String path) {
         this.s3 = s3client;
+        this.path = path;
         this.bucketName = bucket;
     }
 
@@ -32,13 +34,13 @@ public class S3BucketInstance {
         return instance;
     }
 
-    public static S3BucketInstance init(AWSCredentials credentials, Regions region, String bucket) {
+    public static S3BucketInstance init(AWSCredentials credentials, Regions region, String bucket,String path) {
         AmazonS3 s3client = AmazonS3ClientBuilder
                 .standard()
                 .withCredentials(new AWSStaticCredentialsProvider(credentials))
                 .withRegion(region)
                 .build();
-        instance = new S3BucketInstance(s3client, bucket);
+        instance = new S3BucketInstance(s3client, bucket,path);
         return instance;
     }
 
@@ -142,5 +144,9 @@ public class S3BucketInstance {
                 Files.move(f1, f2);
         }
         new File(outputFolder, path).delete();
+    }
+
+    public String getPath() {
+        return path;
     }
 }

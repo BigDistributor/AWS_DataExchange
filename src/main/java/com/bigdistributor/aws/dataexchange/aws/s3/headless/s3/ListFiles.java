@@ -8,7 +8,7 @@ import com.bigdistributor.aws.utils.AWS_DEFAULT;
 public class ListFiles {
     public static void main(String[] args) {
         AWSCredentialInstance.init(AWS_DEFAULT.AWS_CREDENTIALS_PATH);
-        S3BucketInstance.init(AWSCredentialInstance.get(), Regions.EU_CENTRAL_1, "bigstitcher");
+        S3BucketInstance.init(AWSCredentialInstance.get(), Regions.EU_CENTRAL_1, "bigstitcher","");
 
 
     }

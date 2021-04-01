@@ -43,7 +43,7 @@ public class AWSXMLReader extends AWSReader {
 
         AWSCredentialInstance.init(AWS_DEFAULT.AWS_CREDENTIALS_PATH);
 
-        S3BucketInstance.init(AWSCredentialInstance.get(), Regions.EU_CENTRAL_1, AWS_DEFAULT.bucket_name);
+        S3BucketInstance.init(AWSCredentialInstance.get(), Regions.EU_CENTRAL_1, AWS_DEFAULT.bucket_name,"big/");
 
         Document xml = new AWSXMLReader(S3BucketInstance.get(), "big/").read();
 

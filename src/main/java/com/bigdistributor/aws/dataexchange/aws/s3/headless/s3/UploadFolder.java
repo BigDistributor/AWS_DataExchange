@@ -14,7 +14,7 @@ public class UploadFolder {
     public static void main(String[] args) throws IllegalAccessException, InterruptedException, IOException {
         AWSCredentialInstance.init(AWS_DEFAULT.AWS_CREDENTIALS_PATH);
 
-        S3BucketInstance.init(AWSCredentialInstance.get(), Regions.EU_CENTRAL_1, "bigstitcher");
+        S3BucketInstance.init(AWSCredentialInstance.get(), Regions.EU_CENTRAL_1, "bigstitcher","");
 
         File file = new File(folder);
 //        for (File f : file.listFiles())
