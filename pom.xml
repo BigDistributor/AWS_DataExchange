@@ -2,10 +2,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.bigdistributor</groupId>
+        <artifactId>BigDistributor-core</artifactId>
+        <version>0.3-SNAPSHOT</version>
+    </parent>
 
     <groupId>com.bigdistributor</groupId>
     <artifactId>AWS_DataExchange</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>${parent.version}</version>
+    <packaging>pom</packaging>
 
     <name>AWS Exchange helpers</name>
     <description>.</description>
@@ -13,54 +19,41 @@
     <inceptionYear>2020</inceptionYear>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <jackson.version>2.9.6</jackson.version>
-        <jackson.databind.version>2.6.7.4</jackson.databind.version>
+        <jdom2.version>2.0.6</jdom2.version>
+        <aws-java-sdk-s3.version>1.11.969</aws-java-sdk-s3.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.5.13</version>
+            <version>${httpclient.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.6.7.4</version>
+            <version>${jackson-databind.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
-            <version>1.2</version>
+            <version>${commons-logging.version}</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
-<!--            <artifactId>jackson-annotations</artifactId>-->
-<!--            <version>${jackson.version}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.httpcomponents</groupId>-->
-<!--            <artifactId>httpclient</artifactId>-->
-<!--            <version>4.3.4</version>-->
-<!--        </dependency>-->
-        <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3 -->
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-s3</artifactId>
-            <version>1.11.969</version>
+            <version>${aws-java-sdk-s3.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.jdom</groupId>
             <artifactId>jdom2</artifactId>
-            <version>2.0.6</version>
+            <version>${jdom2.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>r05</version>
+            <version>${guava.version}</version>
         </dependency>
     </dependencies>
 </project>
