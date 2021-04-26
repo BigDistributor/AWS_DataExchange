@@ -11,7 +11,6 @@ import java.io.IOException;
 
 public class AWSCSVReader {
 
-
     public static void main(String[] args) throws IllegalAccessException, IOException {
         AWSCredentialInstance.init(AWS_DEFAULT.AWS_CREDENTIALS_PATH);
 
