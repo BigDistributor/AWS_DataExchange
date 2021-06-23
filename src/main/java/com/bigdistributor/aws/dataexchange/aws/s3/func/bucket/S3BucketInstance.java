@@ -1,13 +1,21 @@
 package com.bigdistributor.aws.dataexchange.aws.s3.func.bucket;
 
+import com.amazonaws.AmazonClientException;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.event.ProgressListener;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ListObjectsV2Result;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
-import com.amazonaws.services.s3.transfer.*;
+import com.amazonaws.services.s3.transfer.Download;
+import com.amazonaws.services.s3.transfer.MultipleFileDownload;
+import com.amazonaws.services.s3.transfer.MultipleFileUpload;
+import com.amazonaws.services.s3.transfer.TransferManager;
+import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
+import com.amazonaws.services.s3.transfer.Upload;
 import com.google.common.io.Files;
 
 import java.io.File;
@@ -21,7 +29,7 @@ public class S3BucketInstance {
     private String bucketName;
     private final String path;
 
-    private S3BucketInstance(AmazonS3 s3client, String bucket,String path) {
+    private S3BucketInstance(AmazonS3 s3client, String bucket, String path) {
         this.s3 = s3client;
         this.path = path;
         this.bucketName = bucket;
@@ -34,13 +42,13 @@ public class S3BucketInstance {
         return instance;
     }
 
-    public static S3BucketInstance init(AWSCredentials credentials, Regions region, String bucket,String path) {
+    public static S3BucketInstance init(AWSCredentials credentials, Regions region, String bucket, String path) {
         AmazonS3 s3client = AmazonS3ClientBuilder
                 .standard()
                 .withCredentials(new AWSStaticCredentialsProvider(credentials))
                 .withRegion(region)
                 .build();
-        instance = new S3BucketInstance(s3client, bucket,path);
+        instance = new S3BucketInstance(s3client, bucket, path);
         return instance;
     }
 
@@ -63,7 +71,7 @@ public class S3BucketInstance {
         if (file.isDirectory())
             uploadFolder(file, path);
         else if (file.isFile())
-            uploadFile(file, path);
+            uploadFile(file, path, false);
         System.out.println("Complete");
     }
 
@@ -86,18 +94,32 @@ public class S3BucketInstance {
     public String getBucketName() {
         return bucketName;
     }
-
     public void uploadFile(File file, String path) throws InterruptedException {
+        uploadFile(file,"",false);
+    }
+
+    public void uploadFile(File file, String path, boolean showProgress) throws InterruptedException {
         TransferManager tm = TransferManagerBuilder.standard().withS3Client(s3).build();
         String filePath = (path == "") ? file.getName() : new File(path, file.getName()).getPath();
-        Upload upload = tm.upload(bucketName, filePath, file);
-        upload.waitForCompletion();
+        PutObjectRequest request = new PutObjectRequest(bucketName, filePath, file);
+        if (showProgress)
+            request.setGeneralProgressListener((ProgressListener) progressEvent -> System.out.println("Transferred bytes: " +
+                    progressEvent.getBytesTransferred()));
+        Upload upload = tm.upload(request);
+        try {
+            // You can block and wait for the upload to finish
+            upload.waitForCompletion();
+        } catch (AmazonClientException amazonClientException) {
+            System.out.println("Unable to upload file, upload aborted.");
+            amazonClientException.printStackTrace();
+        }
     }
 
     public void uploadFolder(File file, String path) throws InterruptedException {
         TransferManager tm = TransferManagerBuilder.standard().withS3Client(s3).build();
         String filePath = (path == "") ? file.getName() : new File(path, file.getName()).getPath();
         MultipleFileUpload upload = tm.uploadDirectory(bucketName, filePath, file, true);
+
         upload.waitForCompletion();
     }
 
@@ -149,4 +171,5 @@ public class S3BucketInstance {
     public String getPath() {
         return path;
     }
+
 }
