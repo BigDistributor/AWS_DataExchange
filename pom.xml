@@ -11,13 +11,19 @@
 
     <groupId>com.bigdistributor</groupId>
     <artifactId>AWS_DataExchange</artifactId>
-    <version>${revision}</version>
+    <version>0.3</version>
 
     <name>AWS Exchange helpers</name>
     <description>.</description>
     <url>https://github.com/BigDistributor</url>
     <inceptionYear>2020</inceptionYear>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <dependency>
