@@ -4,10 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.bigdistributor</groupId>
+        <groupId>com.github.BigDistributor</groupId>
         <artifactId>BigDistributor-pom</artifactId>
-        <version>0.3</version>
-        <relativePath/>
+        <version>1b2407f</version>
     </parent>
 
     <groupId>com.bigdistributor</groupId>
