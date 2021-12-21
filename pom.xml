@@ -27,6 +27,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>sc.fiji</groupId>
+            <artifactId>bigdataviewer-core</artifactId>
+            <version>9.1.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>${httpclient.version}</version>
@@ -41,6 +46,11 @@
                     <artifactId>httpclient</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>net.preibisch</groupId>
+            <artifactId>BigStitcher</artifactId>
+            <version>0.8.3</version>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
@@ -62,6 +72,22 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.janelia.saalfeldlab</groupId>
+            <artifactId>n5</artifactId>
+            <version>${n5.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.janelia.saalfeldlab</groupId>
+            <artifactId>n5-aws-s3</artifactId>
+            <version>${n5-aws-s3.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.janelia.saalfeldlab</groupId>
+                    <artifactId>n5</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 </project>
